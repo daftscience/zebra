@@ -1,4 +1,4 @@
-from pyzpl import Label, Label_Text
+from pyzpl import Label, Element, Text, Barcode
 import socket
 
 
@@ -16,14 +16,26 @@ class Print_Label:
         s.close()
 
 
-if __name__ == '__main__':
-
-    label = Label(50, 51)
-    with Label_Text(label, 0, 0) as l:
-        l.append("Test")
+def Create_Label():
+    label = Label(50, 50)
+    with Element(label, 0, 0, w=50) as l:
+        with Text(l) as t:
+            t.append("Label 1")
+    with Element(label, 0, 25) as l:
+        with Text(l, font_height=30) as t:
+            t.append('Label 2')
+    with Element(label, 25, 25) as l:
+        with Text(l, highlighted=True, font_height=15) as t:
+            t.append('Label 3')
+    with Element(label, 25, 35) as l:
+        with Barcode(l,) as t:
+            t.append('Label 3')
 
     print(label.zpl)
+    label.preview()
 
+if __name__ == '__main__':
+    Create_Label()
     # l.origin(0, 1)
     # l.write_text(
     #     "Label 1",
