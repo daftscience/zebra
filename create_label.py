@@ -11,8 +11,8 @@ class Print_Label:
 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((self.TCP_IP, self.TCP_PORT))
-        # s.send(bytes(zpl, "utf-8"))
-        s.send(zpl)
+        s.send(bytes(zpl, "utf-8"))
+        # s.send(zpl)
         s.close()
 
 
@@ -31,10 +31,12 @@ def Create_Label():
         with Barcode(l,) as t:
             t.append('Label 3')
 
-    print(label.zpl)
     label.preview()
+    return label.zpl
 
 if __name__ == '__main__':
+
+    # Print_Label(Create_Label())
     Create_Label()
     # l.origin(0, 1)
     # l.write_text(
